@@ -1,6 +1,6 @@
 package com.rhine.redstorm.service;
 
-import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,5 +65,16 @@ public class TaskService implements ITaskService {
     public void updateTask(Long id, Task task) {
         
     }
+
+    public List<TaskList> getTaskLists() {
+        return taskListRepository.findAll();
+    }
     
+    public List<Task> getTasksByList(Long id)  {
+        Optional<TaskList> list = taskListRepository.findById(id);
+        if(list.isPresent()){
+            return list.get().getTasks();
+        }
+        return Collections.emptyList();
+    }
 }
