@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rhine.redstorm.domain.Task;
@@ -14,8 +13,11 @@ import com.rhine.redstorm.repository.TaskListRepository;
 @Service
 public class TaskService implements ITaskService {
 
-    @Autowired
     TaskListRepository taskListRepository;
+
+    public TaskService(TaskListRepository taskListRepository) {
+        this.taskListRepository = taskListRepository;
+    }
 
     @Override
     public TaskList createList(String name) {
@@ -31,7 +33,11 @@ public class TaskService implements ITaskService {
 
     @Override
     public void renameList(Long id, String name) {
-        
+        Optional<TaskList> list = taskListRepository.findById(id);
+        if(list.isPresent()){
+            list.get().setName(name);
+            taskListRepository.save(list.get());
+        }
     }
 
     @Override
@@ -52,8 +58,13 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public void clearList(Long id) {
-
+    public void clearList(Long list_id) {
+        Optional<TaskList> list = taskListRepository.findById(list_id);
+        
+        if(list.isPresent()) {
+            list.get().getTasks().clear();
+            taskListRepository.save(list.get());
+        }
     }
 
     @Override

@@ -7,7 +7,6 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,24 +25,26 @@ import com.rhine.redstorm.service.TaskService;
 @RequestMapping("/api/v1/rhine")
 public class TaskController {
 
-    private final Logger logger = LoggerFactory.getLogger(TaskController.class);
+    private final Logger LOG = LoggerFactory.getLogger(TaskController.class);
 
-    @Autowired
-    TaskService taskService;
+    private TaskService taskService;
+    private ModelMapper modelMapper;
 
-    @Autowired
-    ModelMapper modelMapper;
 
+    public TaskController(TaskService taskService, ModelMapper modelMapper) {
+        this.taskService = taskService;
+        this.modelMapper = modelMapper;
+    }
 
     @PostMapping("/list/create")
     public TaskListDto createNewList(@RequestParam String name) {
-        logger.info("Creating new list: " + name);
+        LOG.info("Creating new list: " + name);
         return convertTaskListToDto(taskService.createList(name));
     }
 
     @PostMapping("/task/create")
     public TaskDto createNewTask(@RequestParam Long list_id, @RequestBody TaskDto taskDto) {
-        logger.info("Adding task \'" + taskDto.getName() + "\' to [list:id="+list_id+"]");
+        LOG.info("Adding task \'" + taskDto.getName() + "\' to [list:id="+list_id+"]");
         Task task = taskDtoToTask(taskDto);
         taskService.addTask(list_id, task);
         return taskToTaskDto(task);
