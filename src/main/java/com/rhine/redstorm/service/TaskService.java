@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.rhine.redstorm.domain.Task;
-import com.rhine.redstorm.domain.TaskList;
+import com.rhine.redstorm.model.Task;
+import com.rhine.redstorm.model.TaskList;
 import com.rhine.redstorm.repository.TaskListRepository;
 
 @Service

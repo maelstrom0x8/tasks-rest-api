@@ -1,4 +1,4 @@
-package com.rhine.redstorm.domain;
+package com.rhine.redstorm.model;
 
 import java.util.ArrayList;
 import java.util.List;

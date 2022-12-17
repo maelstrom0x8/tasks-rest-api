@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.rhine.redstorm.domain.Task;
-import com.rhine.redstorm.domain.TaskList;
+import com.rhine.redstorm.model.Task;
+import com.rhine.redstorm.model.TaskList;
 import com.rhine.redstorm.repository.TaskListRepository;
 import com.rhine.redstorm.repository.TaskRepository;
 import com.rhine.redstorm.service.TaskService;

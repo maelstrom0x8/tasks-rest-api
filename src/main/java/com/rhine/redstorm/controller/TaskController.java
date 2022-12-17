@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rhine.redstorm.domain.Task;
-import com.rhine.redstorm.domain.TaskList;
 import com.rhine.redstorm.dto.TaskDto;
 import com.rhine.redstorm.dto.TaskListDto;
+import com.rhine.redstorm.model.Task;
+import com.rhine.redstorm.model.TaskList;
 import com.rhine.redstorm.service.TaskService;
 
 @RestController

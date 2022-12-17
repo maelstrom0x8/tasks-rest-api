@@ -2,8 +2,8 @@ package com.rhine.redstorm.service;
 
 import java.util.List;
 
-import com.rhine.redstorm.domain.Task;
-import com.rhine.redstorm.domain.TaskList;
+import com.rhine.redstorm.model.Task;
+import com.rhine.redstorm.model.TaskList;
 
 public interface ITaskService {
     
