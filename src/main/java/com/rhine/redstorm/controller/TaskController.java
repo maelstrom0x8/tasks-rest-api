@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,6 @@ public class TaskController {
     private TaskService taskService;
     private ModelMapper modelMapper;
 
-
     public TaskController(TaskService taskService, ModelMapper modelMapper) {
         this.taskService = taskService;
         this.modelMapper = modelMapper;
@@ -44,7 +44,7 @@ public class TaskController {
 
     @PostMapping("/task/create")
     public TaskDto createNewTask(@RequestParam Long list_id, @RequestBody TaskDto taskDto) {
-        LOG.info("Adding task \'" + taskDto.getName() + "\' to [list:id="+list_id+"]");
+        LOG.info("Adding task \'" + taskDto.getName() + "\' to [list:id=" + list_id + "]");
         Task task = taskDtoToTask(taskDto);
         taskService.addTask(list_id, task);
         return taskToTaskDto(task);
@@ -53,22 +53,26 @@ public class TaskController {
     @GetMapping("/list")
     public List<TaskListDto> getLists() {
         return taskService.getTaskLists().stream()
-            .map(t -> convertTaskListToDto(t))
-            .collect(toList());
+                .map(t -> convertTaskListToDto(t))
+                .collect(toList());
     }
 
     @GetMapping("/task")
     public List<TaskDto> getListTasks(@RequestParam Long list_id) {
         return taskService.getTasksByList(list_id).stream()
-            .map(t-> taskToTaskDto(t))
-            .collect(toList());
+                .map(t -> taskToTaskDto(t))
+                .collect(toList());
     }
 
-    @DeleteMapping("/list")
-    public void deleteList(@RequestParam Long list_id) {
+    @DeleteMapping("/list/{id}")
+    public void deleteList(@PathVariable Long list_id) {
         taskService.deleteList(list_id);
     }
 
+    @DeleteMapping("/list")
+    public void clearAllLists() {
+        taskService.deleteAllLists();
+    }
 
     private TaskListDto convertTaskListToDto(TaskList list) {
         TaskListDto listDto = modelMapper.map(list, TaskListDto.class);
@@ -82,5 +86,5 @@ public class TaskController {
     private Task taskDtoToTask(TaskDto taskDto) {
         return modelMapper.map(taskDto, Task.class);
     }
-    
+
 }

@@ -34,7 +34,7 @@ public class TaskService implements ITaskService {
     @Override
     public void renameList(Long id, String name) {
         Optional<TaskList> list = taskListRepository.findById(id);
-        if(list.isPresent()){
+        if (list.isPresent()) {
             list.get().setName(name);
             taskListRepository.save(list.get());
         }
@@ -43,8 +43,8 @@ public class TaskService implements ITaskService {
     @Override
     public void addTask(Long list_id, Task task) {
         Optional<TaskList> list = taskListRepository.findById(list_id);
-        
-        if(list.isPresent()) {
+
+        if (list.isPresent()) {
             list.get().getTasks().add(task);
             task.setList(list.get());
 
@@ -60,8 +60,8 @@ public class TaskService implements ITaskService {
     @Override
     public void clearList(Long list_id) {
         Optional<TaskList> list = taskListRepository.findById(list_id);
-        
-        if(list.isPresent()) {
+
+        if (list.isPresent()) {
             list.get().getTasks().clear();
             taskListRepository.save(list.get());
         }
@@ -74,18 +74,22 @@ public class TaskService implements ITaskService {
 
     @Override
     public void updateTask(Long id, Task task) {
-        
+
     }
 
     public List<TaskList> getTaskLists() {
         return taskListRepository.findAll();
     }
-    
-    public List<Task> getTasksByList(Long id)  {
+
+    public List<Task> getTasksByList(Long id) {
         Optional<TaskList> list = taskListRepository.findById(id);
-        if(list.isPresent()){
+        if (list.isPresent()) {
             return list.get().getTasks();
         }
         return Collections.emptyList();
+    }
+
+    public void deleteAllLists() {
+        taskListRepository.deleteAll();
     }
 }

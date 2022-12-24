@@ -5,14 +5,6 @@ import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class TaskDto {
 
     private Long id;
@@ -21,5 +13,56 @@ public class TaskDto {
     @DateTimeFormat(iso = ISO.DATE_TIME)
     private LocalDateTime schedule;
     private boolean isCompleted;
-    
+
+    public TaskDto(Long id, String name, String description, LocalDateTime schedule, boolean isCompleted) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.schedule = schedule;
+        this.isCompleted = isCompleted;
+    }
+
+    public TaskDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(LocalDateTime schedule) {
+        this.schedule = schedule;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
 }

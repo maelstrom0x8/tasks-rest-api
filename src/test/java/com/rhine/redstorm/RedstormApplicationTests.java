@@ -77,9 +77,10 @@ class RedstormApplicationTests {
 		String desc = "Brushing routine for good oral health";
 		LocalDateTime sched = LocalDateTime.now();
 
-		Task task = Task.builder()
-			.name(taskName).description(desc).schedule(sched)
-			.build();
+		Task task = new Task();
+			task.setName(taskName);
+			task.setDescription(desc);
+			task.setSchedule(sched);
 
 		TaskList list = taskService.createList("Tasks");
 
