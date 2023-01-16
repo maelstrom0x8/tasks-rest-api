@@ -1,8 +1,7 @@
 package com.rhine.redstorm.controller;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -16,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rhine.redstorm.dto.TaskDto;
+import com.rhine.redstorm.dto.TaskInDto;
 import com.rhine.redstorm.dto.TaskListDto;
+import com.rhine.redstorm.dto.TaskOutDto;
 import com.rhine.redstorm.model.Task;
 import com.rhine.redstorm.model.TaskList;
 import com.rhine.redstorm.service.TaskService;
@@ -43,11 +43,11 @@ public class TaskController {
     }
 
     @PostMapping("/task/create")
-    public TaskDto createNewTask(@RequestParam Long list_id, @RequestBody TaskDto taskDto) {
+    public TaskOutDto createNewTask(@RequestParam Long list_id, @RequestBody TaskInDto taskDto) {
         LOG.info("Adding task \'" + taskDto.getName() + "\' to [list:id=" + list_id + "]");
         Task task = taskDtoToTask(taskDto);
         taskService.addTask(list_id, task);
-        return taskToTaskDto(task);
+        return taskToTaskOutDto(task);
     }
 
     @GetMapping("/list")
@@ -58,9 +58,9 @@ public class TaskController {
     }
 
     @GetMapping("/task")
-    public List<TaskDto> getListTasks(@RequestParam Long list_id) {
+    public List<TaskOutDto> getListTasks(@RequestParam Long list_id) {
         return taskService.getTasksByList(list_id).stream()
-                .map(t -> taskToTaskDto(t))
+                .map(t -> taskToTaskOutDto(t))
                 .collect(toList());
     }
 
@@ -79,11 +79,11 @@ public class TaskController {
         return listDto;
     }
 
-    private TaskDto taskToTaskDto(Task task) {
-        return modelMapper.map(task, TaskDto.class);
+    private TaskOutDto taskToTaskOutDto(Task task) {
+        return modelMapper.map(task, TaskOutDto.class);
     }
 
-    private Task taskDtoToTask(TaskDto taskDto) {
+    private Task taskDtoToTask(TaskInDto taskDto) {
         return modelMapper.map(taskDto, Task.class);
     }
 
