@@ -1,4 +1,4 @@
-package com.rhine.redstorm.config;
+package com.rhine.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
