@@ -1,15 +1,15 @@
 package com.rhine.taskmanager.domain.dto;
 
-public class TaskListDto {
+public class TaskListResponse {
     
     private Long id;
     private String title;
     private String owner;
     
     
-    public TaskListDto() {}
+    public TaskListResponse() {}
 
-    public TaskListDto(Long id, String title, String owner) {
+    public TaskListResponse(Long id, String title, String owner) {
         this.id = id;
         this.title = title;
         this.owner = owner;
