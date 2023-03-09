@@ -10,7 +10,7 @@ import org.springframework.security.test.context.support.WithUserDetails;
 
 import com.rhine.redstorm.RedstormApplication;
 import com.rhine.redstorm.TestConfig;
-import com.rhine.taskmanager.domain.dto.TaskListDto;
+import com.rhine.taskmanager.domain.dto.TaskListResponse;
 import com.rhine.taskmanager.service.TaskManagerService;
 
 @SpringBootTest(classes = { RedstormApplication.class, TestConfig.class })
@@ -23,7 +23,7 @@ public class TaskManagerServiceTest {
     @Test
     @WithUserDetails("anna")
     public void testListIsCreatedForAuthenticatedUser() {
-        TaskListDto list = tms.createList("default");
+        TaskListResponse list = tms.createList("default");
 
         assertEquals("default", list.getTitle());
 
