@@ -59,8 +59,14 @@ public class TaskManagerService {
         return Collections.emptyList();
     }
 
+    public void deleteListById(Long id) {
+        String user = authenticatedUser();
+        taskListRepository.deleteUserListById(user, id);
+    }
+
     public void deleteAllLists() {
-        taskListRepository.deleteAll();
+        String user = authenticatedUser();
+        taskListRepository.deleteAllUserList(user);
     }
 
     private TaskListDto fromTaskList(TaskList list) {

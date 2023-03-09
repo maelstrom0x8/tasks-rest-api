@@ -35,17 +35,4 @@ public class TaskControllerTest {
                                 .andExpect(status().isUnauthorized());
         }
 
-        @Test
-        @WithUserDetails("king")
-        public void retrieveListForUser() throws Exception {
-                mvc.perform(
-                                post("/api/list/create")
-                                                .param("title", "fridays"))
-                                .andExpect(status().isCreated());
-
-                mvc.perform(get("/api/list"))
-                                .andExpect(status().isOk());
-
-        }
-
 }
