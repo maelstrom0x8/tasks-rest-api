@@ -7,26 +7,13 @@ package com.redstorm.rhine.jooq.tables;
 import com.redstorm.rhine.jooq.Keys;
 import com.redstorm.rhine.jooq.Public;
 import com.redstorm.rhine.jooq.tables.records.ListsRecord;
-
-import java.util.function.Function;
-
-import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Function3;
-import org.jooq.Identity;
-import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row3;
-import org.jooq.Schema;
-import org.jooq.SelectField;
-import org.jooq.Table;
-import org.jooq.TableField;
-import org.jooq.TableOptions;
-import org.jooq.UniqueKey;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
+
+import java.util.function.Function;
 
 
 /**
@@ -58,12 +45,12 @@ public class Lists extends TableImpl<ListsRecord> {
     /**
      * The column <code>public.lists.title</code>.
      */
-    public final TableField<ListsRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR.nullable(false), this, "");
+    public final TableField<ListsRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.CLOB.nullable(false), this, "");
 
     /**
      * The column <code>public.lists.owner</code>.
      */
-    public final TableField<ListsRecord, String> OWNER = createField(DSL.name("owner"), SQLDataType.VARCHAR.nullable(false), this, "");
+    public final TableField<ListsRecord, String> OWNER = createField(DSL.name("owner"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     private Lists(Name alias, Table<ListsRecord> aliased) {
         this(alias, aliased, null);
