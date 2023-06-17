@@ -34,7 +34,7 @@ build/
 
 .gradle
 **/build/
-!src/**/build/
+!rhine/src/**/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
