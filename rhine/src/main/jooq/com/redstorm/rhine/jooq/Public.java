@@ -4,6 +4,7 @@
 package com.redstorm.rhine.jooq;
 
 
+import com.redstorm.rhine.jooq.tables.FlywaySchemaHistory;
 import com.redstorm.rhine.jooq.tables.Lists;
 import com.redstorm.rhine.jooq.tables.SchemaVersion;
 import com.redstorm.rhine.jooq.tables.Tasks;
@@ -28,6 +29,11 @@ public class Public extends SchemaImpl {
      * The reference instance of <code>public</code>
      */
     public static final Public PUBLIC = new Public();
+
+    /**
+     * The table <code>public.flyway_schema_history</code>.
+     */
+    public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>public.lists</code>.
@@ -68,6 +74,7 @@ public class Public extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
+            FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             Lists.LISTS,
             SchemaVersion.SCHEMA_VERSION,
             Tasks.TASKS

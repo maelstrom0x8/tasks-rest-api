@@ -4,6 +4,7 @@
 package com.redstorm.rhine.jooq;
 
 
+import com.redstorm.rhine.jooq.tables.FlywaySchemaHistory;
 import com.redstorm.rhine.jooq.tables.Lists;
 import com.redstorm.rhine.jooq.tables.SchemaVersion;
 import com.redstorm.rhine.jooq.tables.Tasks;
@@ -14,6 +15,11 @@ import com.redstorm.rhine.jooq.tables.Tasks;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>public.flyway_schema_history</code>.
+     */
+    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>public.lists</code>.

@@ -15,9 +15,9 @@
     <description>RhineTasks</description>
     <properties>
         <java.version>17</java.version>
-        <db.url>jdbc:postgresql://localhost:54321/rhinedb</db.url>
-        <db.username>maelstrom</db.username>
-        <db.password>aeflheim</db.password>
+        <db.url>${env.RH_DATABASE_URL}</db.url>
+        <db.username>${env.RH_POSTGRES_USERNAME}</db.username>
+        <db.password>${env.RH_POSTGRES_PASSWORD}</db.password>
         <testcontainers.version>1.18.3</testcontainers.version>
         <jooq.version>3.18.3</jooq.version>
         <postgresql.version>42.6.0</postgresql.version>

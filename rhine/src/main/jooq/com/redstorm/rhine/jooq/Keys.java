@@ -4,9 +4,11 @@
 package com.redstorm.rhine.jooq;
 
 
+import com.redstorm.rhine.jooq.tables.FlywaySchemaHistory;
 import com.redstorm.rhine.jooq.tables.Lists;
 import com.redstorm.rhine.jooq.tables.SchemaVersion;
 import com.redstorm.rhine.jooq.tables.Tasks;
+import com.redstorm.rhine.jooq.tables.records.FlywaySchemaHistoryRecord;
 import com.redstorm.rhine.jooq.tables.records.ListsRecord;
 import com.redstorm.rhine.jooq.tables.records.SchemaVersionRecord;
 import com.redstorm.rhine.jooq.tables.records.TasksRecord;
@@ -28,6 +30,7 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, DSL.name("flyway_schema_history_pk"), new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
     public static final UniqueKey<ListsRecord> LISTS_PKEY = Internal.createUniqueKey(Lists.LISTS, DSL.name("lists_pkey"), new TableField[] { Lists.LISTS.ID }, true);
     public static final UniqueKey<SchemaVersionRecord> SCHEMA_VERSION_PK = Internal.createUniqueKey(SchemaVersion.SCHEMA_VERSION, DSL.name("schema_version_pk"), new TableField[] { SchemaVersion.SCHEMA_VERSION.VERSION }, true);
     public static final UniqueKey<TasksRecord> TASKS_PKEY = Internal.createUniqueKey(Tasks.TASKS, DSL.name("tasks_pkey"), new TableField[] { Tasks.TASKS.ID }, true);

@@ -6,9 +6,9 @@ services:
     container_name: 'rhine-postgres'
     image: 'postgres:15.2-alpine'
     environment:
-      POSTGRES_USERNAME: 'maelstrom'
-      POSTGRES_PASSWORD: 'aeflheim'
-      POSTGRES_DB: 'rhinedb'
+      POSTGRES_USERNAME: ${RH_POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${RH_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${RH_DATABASE}
     ports:
       - '54321:5432'
     volumes:
