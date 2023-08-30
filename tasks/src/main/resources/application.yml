@@ -1,0 +1,13 @@
+#rhine.jwks.uri=http://localhost:9000/oauth2/jwks
+
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    baseline-on-migrate: true
+
+server:
+  port: 8000
