@@ -5,6 +5,7 @@ import org.aeros.tasks.manager.domain.dto.TaskRequest;
 import org.aeros.tasks.manager.domain.dto.TaskResponse;
 import org.aeros.tasks.manager.domain.model.Task;
 import org.aeros.tasks.manager.domain.model.TaskList;
+import org.aeros.tasks.manager.repository.ListRepository;
 import org.aeros.tasks.manager.repository.TaskRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -23,19 +25,21 @@ class DefaultTaskManagerService implements TaskManagerService {
     @Autowired private ModelMapper mapper;
 
     private final TaskRepository taskRepository;
+    private final ListRepository listRepository;
 
-    DefaultTaskManagerService(TaskRepository taskRepository) {
+    DefaultTaskManagerService(TaskRepository taskRepository, ListRepository listRepository) {
         this.taskRepository = taskRepository;
+        this.listRepository = listRepository;
     }
 
     @Override
     public TaskList createList(String title) {
-        return taskRepository.save(new TaskList(null, title, user()));
+        return listRepository.save(new TaskList(null, title, user()));
     }
 
     @Override
     public TaskResponse addTask(Long id, TaskRequest task) {
-        TaskList list = taskRepository.findByOwner(user()).orElseThrow();
+        TaskList list = listRepository.findById(user(), id).orElseThrow();
         return from(taskRepository.save(list.id(), from(task)));
     }
 
@@ -45,38 +49,46 @@ class DefaultTaskManagerService implements TaskManagerService {
     }
 
     @Override
-    public TaskResponse updateTask(Long id, TaskRequest task) {
-        return null;
+    public void updateTask(Long id, TaskRequest task) {
+        taskRepository.update(id, from(task));
     }
 
     @Override
     public void deleteTask(Long listId, Long taskId) {
-        taskRepository.deleteTask(user(), listId, taskId);
+        taskRepository.deleteSingle(user(), listId, taskId);
     }
 
     @Override
     public void deleteAllLists() {
-        taskRepository.deleteAllList(user());
+        listRepository.deleteAll(user());
     }
 
     @Override
     public void deleteList(Long id) {
-        taskRepository.deleteList(id, user());
+        listRepository.deleteById(user(), id);
     }
 
     @Override
     public void deleteAllTasks(Long id) {
-        taskRepository.deleteAllTasks(user(), id);
+        taskRepository.deleteAll(user(), id);
     }
 
     @Override
     public List<TaskListResponse> getLists() {
-        return taskRepository.findAll(user()).stream().map(this::from).collect(Collectors.toList());
+        return listRepository.findAll(user()).stream().map(this::from).collect(Collectors.toList());
     }
 
     @Override
     public TaskListResponse getListById(Long id) {
-        return from(taskRepository.findById(id));
+        var list = listRepository.findById(user(), id).orElseThrow();
+        return from(list);
+    }
+
+    public void updateListTitle(Long id, String title) {
+        Optional<TaskList> list = listRepository.findById(user(), id);
+        list.ifPresent(
+                taskList ->
+                        listRepository.update(user(), new TaskList(taskList.id(), title, null)));
     }
 
     private TaskListResponse from(TaskList list) {

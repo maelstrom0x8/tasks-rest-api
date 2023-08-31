@@ -3,14 +3,14 @@ version: '3.1'
 
 services:
   postgres:
-    container_name: 'postgres'
+    container_name: 'postgres-tasks'
     image: 'postgres:15.2-alpine'
     environment:
       POSTGRES_USERNAME: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DATABASE}
     ports:
-      - '54321:5432'
+      - ${DB_PORT}:5432
     volumes:
       - pg_data:/var/lib/postgresql/data
   quasar:

@@ -48,13 +48,10 @@ public class TaskController {
     }
 
     @PutMapping("/{id}/tasks")
-    public ResponseEntity<TaskResponse> updateTask(
+    public ResponseEntity<Void> updateTask(
             @PathVariable Long listId, @RequestBody TaskRequest taskRequest) {
-        TaskResponse task = taskManagerService.updateTask(listId, taskRequest);
-        if (task == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(task);
+        taskManagerService.updateTask(listId, taskRequest);
+        return ResponseEntity.accepted().build();
     }
 
     @GetMapping("/{id}/tasks")

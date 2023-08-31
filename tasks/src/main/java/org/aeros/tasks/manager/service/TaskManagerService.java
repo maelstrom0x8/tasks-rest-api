@@ -23,7 +23,7 @@ public interface TaskManagerService {
 
     List<TaskResponse> getTasksByList(Long id);
 
-    TaskResponse updateTask(Long id, TaskRequest task);
+    void updateTask(Long id, TaskRequest task);
 
     void deleteTask(Long listId, Long taskId);
 
