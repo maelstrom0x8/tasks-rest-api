@@ -1,0 +1,18 @@
+version: '3.1'
+
+
+services:
+  postgres:
+    container_name: 'rhine-postgres'
+    image: 'postgres:15.2-alpine'
+    environment:
+      POSTGRES_USERNAME: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DATABASE}
+    ports:
+      - ${DB_PORT:5432}
+    volumes:
+      - pg_vl:/var/lib/postgresql/data
+
+volumes:
+  pg_vl:

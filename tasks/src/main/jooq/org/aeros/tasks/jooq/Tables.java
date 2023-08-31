@@ -4,7 +4,10 @@
 package org.aeros.tasks.jooq;
 
 
+<<<<<<< HEAD:tasks/src/main/jooq/org/aeros/tasks/jooq/Tables.java
+=======
 import org.aeros.tasks.jooq.tables.FlywaySchemaHistory;
+>>>>>>> c66c6e381fc3f7a5ab8e5e27bb3239201cefe13a:rhine/src/main/jooq/com/redstorm/rhine/jooq/Tables.java
 import org.aeros.tasks.jooq.tables.Lists;
 import org.aeros.tasks.jooq.tables.SchemaVersion;
 import org.aeros.tasks.jooq.tables.Tasks;
@@ -15,11 +18,6 @@ import org.aeros.tasks.jooq.tables.Tasks;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
-
-    /**
-     * The table <code>public.flyway_schema_history</code>.
-     */
-    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>public.lists</code>.

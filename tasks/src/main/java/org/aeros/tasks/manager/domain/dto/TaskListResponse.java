@@ -1,4 +1,4 @@
-package org.aeros.tasks.taskmanager.domain.dto;
+package org.aeros.tasks.manager.domain.dto;
 
 public class TaskListResponse {
 

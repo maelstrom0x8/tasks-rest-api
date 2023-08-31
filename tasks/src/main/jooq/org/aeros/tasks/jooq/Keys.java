@@ -4,11 +4,17 @@
 package org.aeros.tasks.jooq;
 
 
+<<<<<<< HEAD:tasks/src/main/jooq/org/aeros/tasks/jooq/Keys.java
+import org.aeros.tasks.jooq.tables.Lists;
+import org.aeros.tasks.jooq.tables.SchemaVersion;
+import org.aeros.tasks.jooq.tables.Tasks;
+=======
 import org.aeros.tasks.jooq.tables.FlywaySchemaHistory;
 import org.aeros.tasks.jooq.tables.Lists;
 import org.aeros.tasks.jooq.tables.SchemaVersion;
 import org.aeros.tasks.jooq.tables.Tasks;
 import org.aeros.tasks.jooq.tables.records.FlywaySchemaHistoryRecord;
+>>>>>>> c66c6e381fc3f7a5ab8e5e27bb3239201cefe13a:rhine/src/main/jooq/com/redstorm/rhine/jooq/Keys.java
 import org.aeros.tasks.jooq.tables.records.ListsRecord;
 import org.aeros.tasks.jooq.tables.records.SchemaVersionRecord;
 import org.aeros.tasks.jooq.tables.records.TasksRecord;
@@ -30,7 +36,6 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, DSL.name("flyway_schema_history_pk"), new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
     public static final UniqueKey<ListsRecord> LISTS_PKEY = Internal.createUniqueKey(Lists.LISTS, DSL.name("lists_pkey"), new TableField[] { Lists.LISTS.ID }, true);
     public static final UniqueKey<SchemaVersionRecord> SCHEMA_VERSION_PK = Internal.createUniqueKey(SchemaVersion.SCHEMA_VERSION, DSL.name("schema_version_pk"), new TableField[] { SchemaVersion.SCHEMA_VERSION.VERSION }, true);
     public static final UniqueKey<TasksRecord> TASKS_PKEY = Internal.createUniqueKey(Tasks.TASKS, DSL.name("tasks_pkey"), new TableField[] { Tasks.TASKS.ID }, true);

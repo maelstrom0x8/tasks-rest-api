@@ -7,7 +7,7 @@
 
     <groupId>org.aeros</groupId>
     <artifactId>tasks-parent</artifactId>
-    <version>0.0.1</version>
+    <version>0</version>
     <packaging>pom</packaging>
     <name>tasks-parent</name>
     <description>Tasks</description>

@@ -7,7 +7,10 @@ package org.aeros.tasks.jooq;
 import java.util.Arrays;
 import java.util.List;
 
+<<<<<<< HEAD:tasks/src/main/jooq/org/aeros/tasks/jooq/Public.java
+=======
 import org.aeros.tasks.jooq.tables.FlywaySchemaHistory;
+>>>>>>> c66c6e381fc3f7a5ab8e5e27bb3239201cefe13a:rhine/src/main/jooq/com/redstorm/rhine/jooq/Public.java
 import org.aeros.tasks.jooq.tables.Lists;
 import org.aeros.tasks.jooq.tables.SchemaVersion;
 import org.aeros.tasks.jooq.tables.Tasks;
@@ -29,11 +32,6 @@ public class Public extends SchemaImpl {
      * The reference instance of <code>public</code>
      */
     public static final Public PUBLIC = new Public();
-
-    /**
-     * The table <code>public.flyway_schema_history</code>.
-     */
-    public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>public.lists</code>.
@@ -74,7 +72,6 @@ public class Public extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
-            FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             Lists.LISTS,
             SchemaVersion.SCHEMA_VERSION,
             Tasks.TASKS

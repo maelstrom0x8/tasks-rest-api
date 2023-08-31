@@ -4,7 +4,10 @@
 package org.aeros.tasks.jooq;
 
 
+<<<<<<< HEAD:tasks/src/main/jooq/org/aeros/tasks/jooq/Indexes.java
+=======
 import org.aeros.tasks.jooq.tables.FlywaySchemaHistory;
+>>>>>>> c66c6e381fc3f7a5ab8e5e27bb3239201cefe13a:rhine/src/main/jooq/com/redstorm/rhine/jooq/Indexes.java
 import org.aeros.tasks.jooq.tables.SchemaVersion;
 import org.jooq.Index;
 import org.jooq.OrderField;
@@ -22,7 +25,6 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
-    public static final Index FLYWAY_SCHEMA_HISTORY_S_IDX = Internal.createIndex(DSL.name("flyway_schema_history_s_idx"), FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, new OrderField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.SUCCESS }, false);
     public static final Index SCHEMA_VERSION_IR_IDX = Internal.createIndex(DSL.name("schema_version_ir_idx"), SchemaVersion.SCHEMA_VERSION, new OrderField[] { SchemaVersion.SCHEMA_VERSION.INSTALLED_RANK }, false);
     public static final Index SCHEMA_VERSION_S_IDX = Internal.createIndex(DSL.name("schema_version_s_idx"), SchemaVersion.SCHEMA_VERSION, new OrderField[] { SchemaVersion.SCHEMA_VERSION.SUCCESS }, false);
     public static final Index SCHEMA_VERSION_VR_IDX = Internal.createIndex(DSL.name("schema_version_vr_idx"), SchemaVersion.SCHEMA_VERSION, new OrderField[] { SchemaVersion.SCHEMA_VERSION.VERSION_RANK }, false);
