@@ -1,16 +1,17 @@
 package org.aeros.tasks.manager.adapter.repositoy;
 
-import static com.redstorm.rhine.jooq.tables.Lists.LISTS;
-import static com.redstorm.rhine.jooq.tables.Tasks.TASKS;
-
+import static org.aeros.tasks.jooq.tables.Lists.LISTS;
+import static org.aeros.tasks.jooq.tables.Tasks.TASKS;
 import static org.jooq.Records.mapping;
 
+import org.aeros.tasks.jooq.tables.records.TasksRecord;
 import org.aeros.tasks.manager.domain.model.Task;
 import org.aeros.tasks.manager.domain.model.TaskList;
 import org.aeros.tasks.manager.repository.TaskRepository;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,10 +63,7 @@ class JooqTaskRepository implements TaskRepository {
 
     @Override
     public List<Task> findAll(Long listId) {
-        return create.selectFrom(TASKS)
-                .where(TASKS.LIST_ID.eq(listId))
-                .fetch()
-                .map(mapping(Task::new));
+        return create.selectFrom(TASKS).where(TASKS.LIST_ID.eq(listId)).fetch().map(this::from);
     }
 
     @Override
@@ -77,7 +75,7 @@ class JooqTaskRepository implements TaskRepository {
 
     @Override
     public TaskList findById(Long id) {
-        return null;
+        return create.selectFrom(LISTS).where(LISTS.ID.eq(id)).fetchOne(mapping(TaskList::new));
     }
 
     @Override
@@ -101,5 +99,15 @@ class JooqTaskRepository implements TaskRepository {
     @Override
     public void deleteAllTasks(String owner, Long listID) {
         create.delete(LISTS).where(LISTS.OWNER.eq(owner)).and(LISTS.ID.eq(listID)).execute();
+    }
+
+    private Task from(TasksRecord record) {
+        return new Task(
+                record.getId(),
+                record.getName(),
+                record.getDescription(),
+                Instant.ofEpochSecond(record.getSchedule()),
+                record.getCompleted(),
+                record.getListId());
     }
 }
