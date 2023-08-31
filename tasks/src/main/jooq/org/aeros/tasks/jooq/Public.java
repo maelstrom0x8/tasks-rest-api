@@ -7,10 +7,6 @@ package org.aeros.tasks.jooq;
 import java.util.Arrays;
 import java.util.List;
 
-<<<<<<< HEAD:tasks/src/main/jooq/org/aeros/tasks/jooq/Public.java
-=======
-import org.aeros.tasks.jooq.tables.FlywaySchemaHistory;
->>>>>>> c66c6e381fc3f7a5ab8e5e27bb3239201cefe13a:rhine/src/main/jooq/com/redstorm/rhine/jooq/Public.java
 import org.aeros.tasks.jooq.tables.Lists;
 import org.aeros.tasks.jooq.tables.SchemaVersion;
 import org.aeros.tasks.jooq.tables.Tasks;

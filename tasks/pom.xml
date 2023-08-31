@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -12,8 +12,6 @@
     <artifactId>tasks</artifactId>
     <version>0</version>
     <name>tasks</name>
-    <description>Tasks</description>
-
     <properties>
         <java.version>17</java.version>
         <db.url>${env.DATABASE_URL}</db.url>
@@ -26,7 +24,6 @@
         <spotless-maven-plugin.version>2.36.0</spotless-maven-plugin.version>
         <testcontainers-jooq-codegen-maven-plugin.version>0.0.2</testcontainers-jooq-codegen-maven-plugin.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -66,7 +63,6 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
-		
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -77,7 +73,6 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -113,6 +108,60 @@
 
     <build>
         <plugins>
+
+<!--            <plugin>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-jooq-codegen-maven-plugin</artifactId>
+                <version>0.0.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.testcontainers</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${testcontainers.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>generate-jooq-sources</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <database>
+                                <type>POSTGRES</type>
+                                <containerImage>postgres:15.2-alpine</containerImage>
+
+                            </database>
+                            <flyway>
+                                <locations>
+                                    filesystem:src/main/resources/db/migration
+                                </locations>
+                            </flyway>
+                            <jooq>
+                                <generator>
+                                    <database>
+                                        <includes>.*</includes>
+                                        <excludes>flyway_schema_history</excludes>
+                                        <inputSchema>public</inputSchema>
+                                    </database>
+                                    <target>
+                                        <packageName>com.redstorm.rhine.jooq</packageName>
+                                        <directory>target/generated-sources/jooq</directory>
+                                    </target>
+                                </generator>
+                            </jooq>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+
+            <!--spring-boot-maven-plugin-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -130,7 +179,7 @@
                     </excludes>
                 </configuration>
             </plugin>
-
+            <!--com.diffplug.spotless-->
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
@@ -160,12 +209,11 @@
                         </format>
                     </formats>
                     <java>
-                        <importOrder/>
-                        <removeUnusedImports/>
-                        <palantirJavaFormat>
-                            <version>2.30.0</version>
-                        </palantirJavaFormat>
-                        <formatAnnotations/>
+                        <googleJavaFormat>
+                            <version>1.17.0</version>
+                            <style>AOSP</style>
+                            <reflowLongStrings>true</reflowLongStrings>
+                        </googleJavaFormat>
                     </java>
                 </configuration>
             </plugin>

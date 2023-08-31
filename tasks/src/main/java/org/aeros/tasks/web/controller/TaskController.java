@@ -1,74 +1,77 @@
 package org.aeros.tasks.web.controller;
 
-import java.util.List;
-import lombok.AllArgsConstructor;
-import org.aeros.tasks.taskmanager.domain.model.Task;
-import org.aeros.tasks.taskmanager.domain.model.TaskList;
-import org.aeros.tasks.taskmanager.service.TaskManagerService;
+import org.aeros.tasks.manager.domain.dto.TaskListResponse;
+import org.aeros.tasks.manager.domain.dto.TaskRequest;
+import org.aeros.tasks.manager.domain.dto.TaskResponse;
+import org.aeros.tasks.manager.domain.model.TaskList;
+import org.aeros.tasks.manager.service.TaskManagerService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@AllArgsConstructor
+import java.util.List;
+
 @RestController
-@RequestMapping(value = "/api/lists", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping("/api/lists")
 public class TaskController {
 
     private final TaskManagerService taskManagerService;
 
-    @GetMapping
-    public List<TaskList> getList() {
-        return List.of(new TaskList(323L, "Daily", "bob"));
+    public TaskController(TaskManagerService taskManagerService) {
+        this.taskManagerService = taskManagerService;
     }
 
-    @GetMapping("/all")
-    List<TaskList> getAllList() {
+    @GetMapping
+    public List<TaskListResponse> fetchLists() {
         return taskManagerService.getLists();
     }
 
+    @GetMapping("/{id}")
+    TaskListResponse fetchSingleList(@PathVariable Long id) {
+        return taskManagerService.getListById(id);
+    }
+
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public TaskList createList(@RequestParam String title) {
-        return taskManagerService.createList(title);
+    public TaskListResponse postList(@RequestBody String title) {
+        TaskList list = taskManagerService.createList(title);
+        return new TaskListResponse(list.id(), list.title(), list.owner());
     }
 
-    @PutMapping("/update")
-    public void update(TaskList list) {
-        taskManagerService.updateList(list);
+    @DeleteMapping("/{id}")
+    public void deleteList(@PathVariable Long id) {
+        taskManagerService.deleteList(id);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteList(@RequestParam Long id) {
-        taskManagerService.deleteListById(id);
-    }
-
-    @DeleteMapping("/delete/all")
-    public void clearAllLists() {
+    @DeleteMapping("/all")
+    public void clearList() {
         taskManagerService.deleteAllLists();
     }
 
-    @PostMapping("/tasks")
-    public Task addNewTask(@RequestBody Task task) {
-        return taskManagerService.addTask(task);
+    @PutMapping("/{id}/tasks")
+    public ResponseEntity<Void> updateTask(
+            @PathVariable Long listId, @RequestBody TaskRequest taskRequest) {
+        taskManagerService.updateTask(listId, taskRequest);
+        return ResponseEntity.accepted().build();
     }
 
-    @GetMapping("/tasks")
-    public List<Task> getAllTasks(@RequestParam Long listID) {
-        return taskManagerService.getTasks(listID);
+    @GetMapping("/{id}/tasks")
+    public List<TaskResponse> getTasks(@PathVariable Long id) {
+        return taskManagerService.getTasksByList(id);
     }
 
-    @PutMapping("/tasks/update")
-    public void update(@RequestBody Task task) {
-        taskManagerService.updateTask(task);
+    @DeleteMapping("/{id}/tasks/{taskId}")
+    public void deleteTask(@RequestParam Long id, @RequestParam Long taskId) {
+        taskManagerService.deleteTask(id, taskId);
     }
 
-    @DeleteMapping("/tasks/delete")
-    public void deleteTask(@RequestParam Long taskID) {
-        taskManagerService.deleteTask(taskID);
+    @PostMapping("/{id}/tasks")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TaskResponse createTask(@RequestParam Long id, @RequestBody TaskRequest task) {
+        return taskManagerService.addTask(id, task);
     }
 
-    @DeleteMapping("/tasks/delete/all")
-    public void clearTasks(@RequestParam Long listID) {
-        taskManagerService.deleteAllTasks(listID);
+    @DeleteMapping("/{id}/tasks/clear")
+    void clearTasks(@RequestParam Long listId) {
+        taskManagerService.deleteAllTasks(listId);
     }
 }

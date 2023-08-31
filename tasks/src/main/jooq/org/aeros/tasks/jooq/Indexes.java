@@ -4,10 +4,6 @@
 package org.aeros.tasks.jooq;
 
 
-<<<<<<< HEAD:tasks/src/main/jooq/org/aeros/tasks/jooq/Indexes.java
-=======
-import org.aeros.tasks.jooq.tables.FlywaySchemaHistory;
->>>>>>> c66c6e381fc3f7a5ab8e5e27bb3239201cefe13a:rhine/src/main/jooq/com/redstorm/rhine/jooq/Indexes.java
 import org.aeros.tasks.jooq.tables.SchemaVersion;
 import org.jooq.Index;
 import org.jooq.OrderField;

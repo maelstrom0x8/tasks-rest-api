@@ -4,17 +4,9 @@
 package org.aeros.tasks.jooq;
 
 
-<<<<<<< HEAD:tasks/src/main/jooq/org/aeros/tasks/jooq/Keys.java
 import org.aeros.tasks.jooq.tables.Lists;
 import org.aeros.tasks.jooq.tables.SchemaVersion;
 import org.aeros.tasks.jooq.tables.Tasks;
-=======
-import org.aeros.tasks.jooq.tables.FlywaySchemaHistory;
-import org.aeros.tasks.jooq.tables.Lists;
-import org.aeros.tasks.jooq.tables.SchemaVersion;
-import org.aeros.tasks.jooq.tables.Tasks;
-import org.aeros.tasks.jooq.tables.records.FlywaySchemaHistoryRecord;
->>>>>>> c66c6e381fc3f7a5ab8e5e27bb3239201cefe13a:rhine/src/main/jooq/com/redstorm/rhine/jooq/Keys.java
 import org.aeros.tasks.jooq.tables.records.ListsRecord;
 import org.aeros.tasks.jooq.tables.records.SchemaVersionRecord;
 import org.aeros.tasks.jooq.tables.records.TasksRecord;
