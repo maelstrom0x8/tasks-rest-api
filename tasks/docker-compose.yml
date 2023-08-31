@@ -3,13 +3,25 @@ version: '3.1'
 
 services:
   postgres:
-    container_name: 'rhine-postgres'
+    container_name: 'postgres'
     image: 'postgres:15.2-alpine'
     environment:
-      POSTGRES_USERNAME: ${RH_POSTGRES_USERNAME}
-      POSTGRES_PASSWORD: ${RH_POSTGRES_PASSWORD}
-      POSTGRES_DB: ${RH_DATABASE}
+      POSTGRES_USERNAME: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DATABASE}
     ports:
       - '54321:5432'
     volumes:
-      - /mnt/data:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
+  quasar:
+    container_name: quasar
+    image: 'maelstrom0x8/quasar:v0.0.2-x86_64'
+    ports:
+      - "9000:9000"
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DATABASE: ${DATABASE}
+      DB_HOST: quasar
+volumes:
+  pg_data:
