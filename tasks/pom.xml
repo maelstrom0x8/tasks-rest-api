@@ -166,6 +166,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <image>
+                        <builder>dashaun/builder:tiny</builder>
+                        <createdDate>now</createdDate>
+                        <name>maelstrom0x8/${project.artifactId}:v${project.version}-${os.detected.arch}</name>
+                    </image>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
@@ -236,7 +241,7 @@
                             <inputSchema>public</inputSchema>
                         </database>
                         <target>
-                            <packageName>com.redstorm.rhine.jooq</packageName>
+                            <packageName>org.aeros.tasks.jooq</packageName>
                             <directory>src/main/jooq</directory>
                         </target>
                     </generator>
