@@ -28,7 +28,7 @@ jobs:
           version: 17.0.8-graalce
       - run:
           name: "spring-boot:build-image"
-          command: "source init.sh && docker compose up -d &&./mvnw clean package -Pnative spring-boot:build-image -DskipTests"
+          command: "./mvnw -Pnative spring-boot:build-image -DskipTests"
       - docker/check:
           docker-username: DOCKER_LOGIN
           docker-password: DOCKER_PASSWORD
