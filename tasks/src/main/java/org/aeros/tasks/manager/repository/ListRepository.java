@@ -1,21 +1,24 @@
 package org.aeros.tasks.manager.repository;
 
 import org.aeros.tasks.manager.domain.model.TaskList;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface ListRepository {
+public interface ListRepository extends JpaRepository<TaskList, Long> {
 
-    TaskList save(TaskList list);
+    @Query("SELECT t FROM TaskList t WHERE t.owner = :owner AND t.id = :id")
+    Optional<TaskList> findById(@Param("owner") String user, @Param("id") Long id);
 
-    Optional<TaskList> findById(String user, Long id);
+    @Query("SELECT t FROM TaskList t WHERE t.owner = :owner")
+    List<TaskList> findAllByUser(@Param("owner") String user);
 
-    List<TaskList> findAll(String user);
+    @Query("DELETE FROM TaskList t WHERE t.owner = :owner")
+    void deleteAll(@Param("owner") String user);
 
-    void deleteAll(String user);
-
-    void deleteById(String user, Long id);
-
-    void update(String user, TaskList list);
+    @Query("DELETE FROM TaskList t WHERE t.owner = :owner AND t.id = :id")
+    void deleteById(@Param("owner") String user, @Param("id") Long id);
 }

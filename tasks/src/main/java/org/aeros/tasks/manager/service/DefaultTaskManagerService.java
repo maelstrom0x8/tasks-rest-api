@@ -38,24 +38,30 @@ class DefaultTaskManagerService implements TaskManagerService {
     }
 
     @Override
-    public TaskResponse addTask(Long id, TaskRequest task) {
+    public TaskResponse addTask(Long id, TaskRequest request) {
         TaskList list = listRepository.findById(user(), id).orElseThrow();
-        return from(taskRepository.save(list.id(), from(task)));
+        Task task = from(request);
+        task.setList(list);
+        return from(taskRepository.save(task));
     }
 
     @Override
     public List<TaskResponse> getTasksByList(Long id) {
-        return taskRepository.findAll(id).stream().map(this::from).collect(Collectors.toList());
+        return taskRepository.findAllByListId(id).stream()
+                .map(this::from)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void updateTask(Long id, TaskRequest task) {
-        taskRepository.update(id, from(task));
-    }
+    public void updateTask(Long id, TaskRequest task) {}
 
     @Override
     public void deleteTask(Long listId, Long taskId) {
-        taskRepository.deleteSingle(user(), listId, taskId);
+        Optional<TaskList> optional = listRepository.findById(user(), listId);
+        optional.ifPresent(
+                list -> {
+                    list.getTasks().removeIf(e -> e.getId().equals(taskId));
+                });
     }
 
     @Override
@@ -70,12 +76,18 @@ class DefaultTaskManagerService implements TaskManagerService {
 
     @Override
     public void deleteAllTasks(Long id) {
-        taskRepository.deleteAll(user(), id);
+        Optional<TaskList> optional = listRepository.findById(user(), id);
+        optional.ifPresent(
+                list -> {
+                    list.getTasks().clear();
+                });
     }
 
     @Override
     public List<TaskListResponse> getLists() {
-        return listRepository.findAll(user()).stream().map(this::from).collect(Collectors.toList());
+        return listRepository.findAllByUser(user()).stream()
+                .map(this::from)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -86,9 +98,13 @@ class DefaultTaskManagerService implements TaskManagerService {
 
     public void updateListTitle(Long id, String title) {
         Optional<TaskList> list = listRepository.findById(user(), id);
-        list.ifPresent(
-                taskList ->
-                        listRepository.update(user(), new TaskList(taskList.id(), title, null)));
+        list.ifPresentOrElse(
+                tl -> {
+                    listRepository.save(new TaskList(tl.getId(), tl.getTitle(), user()));
+                },
+                () -> {
+                    throw new IllegalArgumentException();
+                });
     }
 
     private TaskListResponse from(TaskList list) {

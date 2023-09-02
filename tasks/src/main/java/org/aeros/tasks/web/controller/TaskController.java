@@ -34,7 +34,7 @@ public class TaskController {
     @PostMapping
     public TaskListResponse postList(@RequestBody String title) {
         TaskList list = taskManagerService.createList(title);
-        return new TaskListResponse(list.id(), list.title(), list.owner());
+        return new TaskListResponse(list.getId(), list.getTitle());
     }
 
     @DeleteMapping("/{id}")
@@ -50,7 +50,7 @@ public class TaskController {
     @PutMapping("/{id}/tasks")
     public ResponseEntity<Void> updateTask(
             @PathVariable Long listId, @RequestBody TaskRequest taskRequest) {
-        taskManagerService.updateTask(listId, taskRequest);
+        taskManagerService.addTask(listId, taskRequest);
         return ResponseEntity.accepted().build();
     }
 

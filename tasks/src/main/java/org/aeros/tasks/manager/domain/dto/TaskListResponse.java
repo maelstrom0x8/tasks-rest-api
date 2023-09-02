@@ -4,14 +4,12 @@ public class TaskListResponse {
 
     private Long id;
     private String title;
-    private String owner;
 
     public TaskListResponse() {}
 
-    public TaskListResponse(Long id, String title, String owner) {
+    public TaskListResponse(Long id, String title) {
         this.id = id;
         this.title = title;
-        this.owner = owner;
     }
 
     public Long getId() {
@@ -28,13 +26,5 @@ public class TaskListResponse {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
     }
 }
